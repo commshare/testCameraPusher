@@ -157,7 +157,7 @@ ifeq ($(strip $(PROGRAM)), .a)  # a file
 	$(AR) cru $(PROGRAM) *.o 
 	$(RANLIB) $(PROGRAM)
 else							# so file
-	$(CXX) *.o --share -fPIC -o $(PROGRAM)
+	$(CXX) *.o  -shared -fPIC -o $(PROGRAM)
 #	$(STRIP) $(PROGRAM)
 endif
 #	$(MV) $(PROGRAM) ./lib

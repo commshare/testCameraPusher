@@ -1,0 +1,21 @@
+zhangbin@bogon  ~/myProjects/learndss/mypusher/rtsp_mp3_pusher_api   master ●  make -f Makefile.macosx test
+clang++  -g -o PusherModuleTest test/main.cpp  media_src.o -g -I. -I ./include -D__MacOSX__=1   -I ./BasicUsageEnvironment/include  -L ./lib -lRTSPPusher -lpthread -L ./BasicUsageEnvironment -lUsageEnvironment
+test/main.cpp:220:2: warning: 'sem_init' is deprecated
+      [-Wdeprecated-declarations]
+        sem_init(&g_sem, 0, 0);
+        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/sys/semaphore.h:55:42: note:
+      'sem_init' has been explicitly marked deprecated here
+int sem_init(sem_t *, int, unsigned int) __deprecated;
+                                         ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/sys/cdefs.h:176:37: note:
+      expanded from macro '__deprecated'
+#define __deprecated    __attribute__((deprecated))
+                                       ^
+test/main.cpp:236:33: warning: while loop has empty body [-Wempty-body]
+        while ((sem_wait(&g_sem) != 0));
+                                       ^
+test/main.cpp:236:33: note: put the semicolon on a separate line to silence this
+      warning
+2 warnings generated.
+ zhangbin@bogon  ~/myProjects/learndss/mypusher/rtsp_mp3_pusher_api   master ● 

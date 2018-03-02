@@ -1,0 +1,65 @@
+cmake_minimum_required(VERSION 3.9)
+project(rtsp_mp3_pusher_api)
+
+set(CMAKE_CXX_STANDARD 11)
+include_directories("./")
+include_directories("test")
+include_directories("include")
+include_directories("BasicUsageEnvironment/include")
+
+add_executable(rtsp_mp3_pusher_api
+        BasicUsageEnvironment/include/BasicHashTable.hh
+        BasicUsageEnvironment/include/BasicUsageEnvironment.hh
+        BasicUsageEnvironment/include/BasicUsageEnvironment0.hh
+        BasicUsageEnvironment/include/BasicUsageEnvironment_version.hh
+        BasicUsageEnvironment/include/Boolean.hh
+        BasicUsageEnvironment/include/DelayQueue.hh
+        BasicUsageEnvironment/include/HandlerSet.hh
+        BasicUsageEnvironment/include/HashTable.hh
+        BasicUsageEnvironment/include/NetCommon.h
+        BasicUsageEnvironment/include/strDup.hh
+        BasicUsageEnvironment/include/UsageEnvironment.hh
+        BasicUsageEnvironment/BasicHashTable.cpp
+        BasicUsageEnvironment/BasicTaskScheduler.cpp
+        BasicUsageEnvironment/BasicTaskScheduler0.cpp
+        BasicUsageEnvironment/BasicUsageEnvironment.cpp
+        BasicUsageEnvironment/BasicUsageEnvironment0.cpp
+        BasicUsageEnvironment/DelayQueue.cpp
+        BasicUsageEnvironment/HashTable.cpp
+        BasicUsageEnvironment/strDup.cpp
+        BasicUsageEnvironment/UsageEnvironment.cpp
+        include/API_PusherModule.h
+        include/API_PusherTypes.h
+        test/main.cpp
+        test/media_src.cpp
+        test/media_src.h
+        test/timer.cpp
+        test/timer.h
+        API_PusherModule.cpp
+        ArrayObjectDeleter.h
+        ClientSocket.cpp
+        ClientSocket.h
+        common.h
+        memory.cpp
+        memory.h
+        mp3Parser.h
+        MsgQueue.h
+        MyLog.h
+        PusherHandler.cpp
+        PusherHandler.h
+        ringbuffer.cpp
+        ringbuffer.h
+        RTPPacket.h
+        RTSPClient.cpp
+        RTSPClient.h
+        Socket.cpp
+        Socket.h
+        StringFormatter.cpp
+        StringFormatter.h
+        StringParser.cpp
+        StringParser.h
+        StrPtrLen.cpp
+        StrPtrLen.h
+        SVector.h
+        TCPSocket.cpp
+        TCPSocket.h)

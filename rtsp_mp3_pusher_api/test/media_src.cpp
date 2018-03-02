@@ -53,24 +53,26 @@ MPAMediaStream::~MPAMediaStream()
 {
     close();
 }
-
+/*打开一个目录*/
 int MPAMediaStream::open(const void *arg, int arg_size)
 {
     assert(arg != NULL);
     assert(_file == NULL);
 
     const char *path = (const char *)arg;
-
+    /*二进制读取*/
     FILE *f = fopen(path, "r+b");
     if ( f == NULL)
     {
 	printf("open '%s' failed, err=%d\n", path, errno);
 	return -1;
     }
+    /*文件大小*/
 	fseek(f, 0, SEEK_END);
 	_total_bytes = ftell(f);
+    /*文件首*/
 	fseek(f, 0, SEEK_SET);
-
+    /*简单查看文件头是不是mp3*/
     if (parse(f) != 0)
     {
 	fclose(f);
@@ -79,7 +81,7 @@ int MPAMediaStream::open(const void *arg, int arg_size)
 
     _file = f;
     _is_first = true;
-
+    /*计算总音频帧数目*/
 	_total_frames = _total_bytes / _frm_size;
 	_total_seconds = (int)(_frm_duration * _total_frames / 1000);
 	_cur_frame = 0;
@@ -133,7 +135,7 @@ int MPAMediaStream::get_media_attr(MediaAttr *attr)
 }
 
 #define ID3V2_FIX_HEAD_SIZE 10
-
+/*解析mp3文件，主要看文件头*/
 int MPAMediaStream::parse(FILE *f)
 {
     // check ID3v2 Header
@@ -153,7 +155,7 @@ int MPAMediaStream::parse(FILE *f)
     {
 	fseek(f, 0, SEEK_SET);
     }
-
+    /*获取第一个音频帧*/
     // get the first frame
     return seek_frame(f);
 }

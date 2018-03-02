@@ -1,0 +1,17 @@
+ ✘ zhangbin@bogon  ~/myProjects/learndss/mypusher/rtsp_mp3_pusher_api   master ●  make -f Makefile.macosx all
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     API_PusherModule.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     ClientSocket.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     PusherHandler.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     RTSPClient.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     Socket.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     StrPtrLen.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     StringFormatter.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     StringParser.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     TCPSocket.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     memory.cpp
+clang++  -c  -g -I. -I ./include -D__MacOSX__=1     ringbuffer.cpp
+ar   cru libRTSPPusher.a *.o
+ranlib   libRTSPPusher.a
+mkdir ./lib
+mv libRTSPPusher.a ./lib
+ zhangbin@bogon  ~/myProjects/learndss/mypusher/rtsp_mp3_pusher_api   master ● 

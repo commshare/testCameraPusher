@@ -152,7 +152,7 @@ private:
 
     // mpa info
     int _cur_frame;
-    int _frm_size;
+    int _frm_size; /*一个音频帧的固定大小，可以解析出来*/
     double _frm_duration;
 	int _total_seconds;
 	int _total_bytes;

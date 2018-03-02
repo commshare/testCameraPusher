@@ -15,6 +15,7 @@
 #include <BasicUsageEnvironment/include/UsageEnvironment.hh>
 #include <BasicUsageEnvironment/include/BasicUsageEnvironment.hh>
 
+class BasicUsageEnvironment;
 
 #define PUSHER_DEBUG 1
 
@@ -104,7 +105,7 @@ void PushStreamTask(void* arg)
 	bool sendnext = false;
 
 sendNextFrame :
-
+    /*从mp3文件中读取一帧*/
 	if ((g_media_stream != NULL) &&  (frameLen = g_media_stream->read_frame(buf, sizeof(buf))) <= 0)
     {
         g_endEventLoop = 1;
@@ -125,7 +126,7 @@ sendNextFrame :
 		mframe.timestampSec = g_timestampSec;
 		mframe.timestampUsec = g_timestampUsec;
         g_frameIndex++;
-
+        /*推送出去*/
         if (0 == RTSP_Pusher_PushFrame(g_pusher_handler, &mframe))
 		{
 		    delaySendTime = static_cast<int>(duration * 1000);
@@ -228,11 +229,12 @@ int main(int argc, char * argv[])
 	mi.audioSamplerate = 44100;
 	
 	char url[128] = {0};
+    /* 1是服务器地址。2是session名字*/
 	sprintf(url, "rtsp://%s/%s.sdp", argv[1], argv[2]);
 	ret = RTSP_Pusher_StartStream(g_pusher_handler, url, RTP_OVER_TCP, "1", 0, 1, mi);
 	
 	while ((sem_wait(&g_sem) != 0));
-
+    /*live555的调度器？*/
     g_scheduler = BasicTaskScheduler::createNew();
 	g_env = BasicUsageEnvironment::createNew(*g_scheduler);
     g_lastFrameTimestamp = 0UL;            
@@ -240,6 +242,7 @@ int main(int argc, char * argv[])
 	
 	while (g_running)
 	{
+        /*dir是存放mp3文件的吧*/
 		if ((ptr=readdir(dir)) == NULL) break;
 		if (strcmp(ptr->d_name, ".") == 0 || strcmp(ptr->d_name, "..") == 0 || ptr->d_type != 8) continue;
 

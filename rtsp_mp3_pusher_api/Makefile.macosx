@@ -47,7 +47,8 @@ DEBUG := -g
 # The flags used by the cpp (man cpp for more).
 # CPPFLAGS  := -Wall -Werror # show all warnings and take them as errors
 CPPFLAGS  := $(DEBUG) -I. -I ./include -D__MacOSX__=1  
-
+#add for basic env
+CPPFLAGS += -I ./BasicUsageEnvironment/include
 # The compiling flags used only for C.
 # If it is a C++ program, no need to set these flags.
 # If it is a C and C++ merging program, set these flags for the C parts.
@@ -62,7 +63,7 @@ CXXFLAGS  +=
 
 # The library and the link options ( C and C++ common).
 LDFLAGS   :=
-LDFLAGS   += -L./lib -lRTSPPusher -lpthread 
+LDFLAGS   += -L ./lib -lRTSPPusher -lpthread -L ./BasicUsageEnvironment -lUsageEnvironment
 
 ## Implict Section: change the following only when necessary.
 ##=============================================================================
@@ -95,6 +96,7 @@ DEPS    = $(patsubst %.o,%.d,$(OBJS))
 
 .PHONY : all objs clean cleanall rebuild test
 
+####默认编译的是一个静态库
 all : $(PROGRAM)
 #	$(STRIP) $(PROGRAM)
 
@@ -171,7 +173,7 @@ rebuild: clean all
 clean :
 	@$(RM) *.o *.d
 	@$(RM) -rf ./lib
-
+#编译得到二进制测试程序
 test : media_src.o  
 	$(CXX) -g -o $(PROGRAM_TEST) test/main.cpp  media_src.o $(CPPFLAGS) $(LDFLAGS)
 
