@@ -6,6 +6,7 @@ include_directories("./")
 include_directories("test")
 include_directories("include")
 include_directories("BasicUsageEnvironment/include")
+include_directories("plog/include")
 
 add_executable(rtsp_mp3_pusher_api
         BasicUsageEnvironment/include/BasicHashTable.hh
@@ -62,4 +63,4 @@ add_executable(rtsp_mp3_pusher_api
         StrPtrLen.h
         SVector.h
         TCPSocket.cpp
-        TCPSocket.h)
+        TCPSocket.h TCPSocket.h)

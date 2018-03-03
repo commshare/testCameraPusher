@@ -4,6 +4,7 @@
     
     
 */
+#include <plog/include/plog/Log.h>
 #include "common.h"
 #include "ClientSocket.h"
 
@@ -91,13 +92,15 @@ ET_Error ClientSocket::SendSendBuffer(TCPSocket* inSocket)
         
     } while (theLengthSent > 0);
     
-    if (theErr == ET_NoErr)
+    if (theErr == ET_NoErr){
         fSendBuffer.Len = fSentLength = 0; // Message was sent
+    }
     else
     {
         // Message wasn't entirely sent. Caller should wait for a read event on the POST socket
         fSocketP = inSocket;
 		fEventMask = EV_WR;
+        LOGD<<"Message wasn't entirely sent. Caller should wait for a read event on the POST socket"<<" inSocket->Send ERR "<<theErr;
     }
     return theErr;
 }
@@ -149,9 +152,11 @@ ET_Error TCPClientSocket::SendV(iovec* inVec, uint32_t inNumVecs)
     }
     
     ET_Error theErr = this->Connect(&fSocket);
-    if (theErr != ET_NoErr)
+    if (theErr != ET_NoErr){
+        LOGD<<"TCPClientSocket Connect err :"<<theErr;
         return theErr;
-        
+    }
+
     return this->SendSendBuffer(&fSocket);
 }
             

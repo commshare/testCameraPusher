@@ -6,6 +6,7 @@
     
 */
 
+#include <plog/include/plog/Log.h>
 #include "common.h"
 
 #include "RTSPClient.h"
@@ -491,11 +492,12 @@ ET_Error RTSPClient::DoTransaction()
     
 	for(;;)
 	{
+        LOGD<<"DoTransaction STATE :"<<fState;
 		switch(fState)
 		{
 			//Initial state: getting ready to send the request; the authenticator is initialized if it exists.
 			//This is the only state where a new request can be made.
-			case kInitial:
+			case kInitial: /*0*/
 				/*
 				if (fAuthenticator != NULL)
 				{
@@ -516,12 +518,12 @@ ET_Error RTSPClient::DoTransaction()
 				break;
 
 			//Request Sending state: keep on calling Send while Send returns EAGAIN or EINPROGRESS
-			case kRequestSending:
+			case kRequestSending: /*1*/
         		theErr = fSocket->Send(theRequest.Ptr, theRequest.Len);
         
         		if (theErr != ET_NoErr)
 				{
-					//printf("RTSPClient::DoTransaction Send len=%u err = %d\n", theRequest.Len, theErr);
+					LOGD<<"RTSPClient::DoTransaction Send len"<< theRequest.Len<<"err:"<<theErr;
             		return theErr;
 				}
 
@@ -540,8 +542,10 @@ ET_Error RTSPClient::DoTransaction()
 			case kHeaderReceived:
         		theErr = this->ReceiveResponse();  //note that this function can change the fState
 
-        		if (theErr != ET_NoErr)
-            		return theErr;
+        		if (theErr != ET_NoErr){
+                    LOGD<<"ReceiveResponse ERR :"<<theErr;
+                    return theErr;
+                }
 
 				//The response has been completely received and parsed.  If the response is 401 unauthorized, then redo the request with authorization
 				fState = kInitial;

@@ -11,10 +11,10 @@
 #include <arpa/inet.h>
 #include <sys/select.h>
 #include "RTPPacket.h"
+#include <plog/Log.h> // Step1: include the header.
 
 #define MAX_RTP_PAYLOAD 1400
 #define RTP_HDR_SZ 12
-
 
 PusherHandler* PusherHandler::createNew()
 {
@@ -44,7 +44,10 @@ int PusherHandler::startStream(const char* url,
 	{
 		char *tuser = NULL, *tpasswd = NULL;	
 		ret = parseDetailRTSPURL(url, tuser, tpasswd, &addr[0], &port);
-		if (ret < 0) return ret;
+		if (ret < 0) {
+            LOGD<<"parseDetailRTSPURL FAIL :RET"<<ret;
+            return ret;
+        }
 
 		m_socket = new TCPClientSocket(Socket::kNonBlockingSocketType);
 		uint32_t ipAddr = (uint32_t)ntohl(::inet_addr(addr));
@@ -76,6 +79,7 @@ int PusherHandler::startStream(const char* url,
 	}
 	else
 	{
+        LOGD<<"RTSP CLIENT IS RUNNING RET:"<<ret;
 		// is running.
 		return ret;
 	}
@@ -84,7 +88,7 @@ int PusherHandler::startStream(const char* url,
 	m_connType = connType;
 	memcpy(&m_mediaInfo, &mi, sizeof(mi));
 	ret = generateSDPString(addr, mi);
-
+    LOGD<<"generateSDPString RET :"<<ret;
     m_state = kSendingOptions;
 	return SetupStream();
 }
@@ -180,6 +184,7 @@ int PusherHandler::pushFrame(MediaFrame* frame)
 		
 		if (theErr != ET_NoErr)
 		{
+			LOGD <<"SendInterleavedWrite ERR :"<<theErr;
 			if ((theErr == EINPROGRESS) || (theErr == EAGAIN))
 			{
 				m_socket->GetSocket()->RequestEvent(EV_WR);
@@ -198,12 +203,14 @@ int PusherHandler::pushFrame(MediaFrame* frame)
 
 	if (theErr != ET_NoErr)
 	{
+		LOGD <<"ERR :"<<theErr;
 	    m_pusherState = PUSHER_STATE_ERROR;
 		//close socket        
 		delete m_socket; m_socket = NULL;
 		if (m_callbackFunc != NULL)
 		{
 		    int status = m_rtspClient->GetStatus();
+			LOGD << "STATUS "<< status;
 			if (status == 200) status = errno;
 			m_callbackFunc(m_pusherState, status, m_cbParam);
 		}
@@ -241,9 +248,10 @@ ET_Error PusherHandler::SetupStream()
     bool endLoop = false;
 	while ((theErr == ET_NoErr) && (m_state != kDone) && (!endLoop))
 	{
+        LOGD<<"SetupStream : STATE :"<<m_state;
 		switch(m_state)
 		{
-			case kSendingOptions:
+			case kSendingOptions: /*0*/
 			{
 				theErr = m_rtspClient->SendOptions();
 				if (theErr == ET_NoErr)
@@ -251,13 +259,16 @@ ET_Error PusherHandler::SetupStream()
 					if (m_rtspClient->GetStatus() != 200)
 					{
 						theErr = ENOTCONN;
+						LOGD<<"m_rtspClient->SendOptions() ERR1 :"<< theErr;
 						break;
 					}
 					else
-					{
+					{   LOGD<<"CHANGE STATE FROM OPTION TO ANNOUNCE ";
 						m_state = kSendingAnnounce;
 					}
-				}
+				}else{
+                    LOGD<<"m_rtspClient->SendOptions() ERR2 :"<<theErr;
+                }
 				break;
 			}
 			case kSendingAnnounce:
@@ -272,6 +283,7 @@ ET_Error PusherHandler::SetupStream()
 					}
 					else
 					{
+                        LOGD<<"CHANGE STATE FROM ANNOUNCE TO SETUP ";
 						m_state = kSendingSetup;
 					}
 				}
@@ -282,6 +294,7 @@ ET_Error PusherHandler::SetupStream()
 				if (m_connType == RTP_OVER_TCP)
 				{
 					theErr = m_rtspClient->SendTCPSetup(1, 0, 1);
+                    LOGD<<"RTSP CLIENT TCP CONN RET :"<<theErr;
 				}
 					
 				if (theErr == ET_NoErr)
@@ -293,6 +306,7 @@ ET_Error PusherHandler::SetupStream()
 					}
 					else
 					{
+                        LOGD<<"CHANGE STATE FROM SETUP TO PLAY ";
 						m_state = kSendingPlay;
 					}
 				}

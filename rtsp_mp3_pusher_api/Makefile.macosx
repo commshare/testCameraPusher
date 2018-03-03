@@ -48,7 +48,7 @@ DEBUG := -g
 # CPPFLAGS  := -Wall -Werror # show all warnings and take them as errors
 CPPFLAGS  := $(DEBUG) -I. -I ./include -D__MacOSX__=1  
 #add for basic env
-CPPFLAGS += -I ./BasicUsageEnvironment/include
+CPPFLAGS += -I ./BasicUsageEnvironment/include -I ./plog/include
 # The compiling flags used only for C.
 # If it is a C++ program, no need to set these flags.
 # If it is a C and C++ merging program, set these flags for the C parts.

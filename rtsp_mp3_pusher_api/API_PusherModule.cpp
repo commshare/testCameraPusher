@@ -29,7 +29,10 @@ _API int _APICALL RTSP_Pusher_StartStream(RTSP_Pusher_Handler handler, const cha
 		 const MediaInfo& mi)
 {
 	PusherHandler* hdr = (PusherHandler*) handler;
-	if (hdr == NULL) return -1;
+	if (hdr == NULL) {
+		LOGD<<"PUSHER HANDLER IS NULL ";
+		return -1;
+	}
 	else return hdr->startStream(url, connType, username, password, reconn, mi);
 }
 

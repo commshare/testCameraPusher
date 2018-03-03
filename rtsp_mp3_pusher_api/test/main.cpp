@@ -20,6 +20,7 @@ class BasicUsageEnvironment;
 #define PUSHER_DEBUG 1
 
 bool g_running = false;
+bool g_sigExit = false ;
 sem_t g_sem;
 
 static RTSP_Pusher_Handler g_pusher_handler = NULL;
@@ -43,6 +44,7 @@ static void SigHandle(int signo)
 		case SIGINT:
 		case SIGTERM:
 			g_running = false;
+            g_sigExit = true ;
 			printf("got SIGTERM sigal.\n");
 			break;
 		default:
@@ -85,8 +87,12 @@ static int PusherStateCallbackFunc(RTSP_Pusher_State state, int rtspStatusCode, 
 			g_running = false;
 			break;
 	}
+	/*让主线程不再租塞*/
 	if (state != PUSHER_STATE_CONNECTING && state != PUSHER_STATE_PUSHING && state != PUSHER_STATE_DISCONNECTED)
 	{
+		/*
+		 * 函数sem_post( sem_t *sem )用来增加信号量的值。
+		 * 当有线程阻塞在这个信号量上时，调用这个函数会使其中的一个线程不在阻塞，选择机制同样是由线程的调度策略决定的。　*/
 		sem_post(&g_sem);
 	}
     return 0;
@@ -197,6 +203,12 @@ sendNextFrame :
 
 int main(int argc, char * argv[]) 
 {
+	plog::init(plog::debug, "Hello.txt"); // Step2: initialize the logger.
+
+	// Step3: write log messages using a special macro.
+	// There are several log macros, use the macro you liked the most.
+
+	LOGD << "---------Hello pusher!------"; // short macro
 	int ret = 0;
 
 	if (argc < 4)
@@ -231,9 +243,16 @@ int main(int argc, char * argv[])
 	char url[128] = {0};
     /* 1是服务器地址。2是session名字*/
 	sprintf(url, "rtsp://%s/%s.sdp", argv[1], argv[2]);
+	LOGD << "URL :"<< url ;
+	LOGD <<"START PUSH STREAM :";
 	ret = RTSP_Pusher_StartStream(g_pusher_handler, url, RTP_OVER_TCP, "1", 0, 1, mi);
-	
-	while ((sem_wait(&g_sem) != 0));
+    LOGD <<"START PUSH STREAM ret :"<<ret;
+
+	/*函数sem_wait( sem_t *sem )被用来阻塞当前线程直到信号量sem的值大于0，解除阻塞后将sem的值减一，表明公共资源经使用后减少。
+	 * 函数sem_trywait ( sem_t *sem )是函数sem_wait（）的非阻塞版本，它直接将信号量sem的值减一。*/
+    while ((sem_wait(&g_sem) != 0) && g_sigExit == false /*设置为true时要退出这个租塞*/ );
+    LOGD <<"----1---";
+
     /*live555的调度器？*/
     g_scheduler = BasicTaskScheduler::createNew();
 	g_env = BasicUsageEnvironment::createNew(*g_scheduler);
@@ -263,7 +282,7 @@ int main(int argc, char * argv[])
     }
 
     //getchar();
-	 
+	 printf("----out of push----\n");
     ret = RTSP_Pusher_CloseStream(g_pusher_handler);
 	RTSP_Pusher_Release(g_pusher_handler);
 	closedir(dir);

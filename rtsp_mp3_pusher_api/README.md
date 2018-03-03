@@ -16,3 +16,20 @@ test工程下的PusherModuleTest的运行方法：
    
    - 3 make -f Makefile.macosx test
    - 4 运行测试 
+
+##2 运维
+### 8554 占用
+
+```
+查看某个进程打开的文件句柄
+sudo lsof -i -n -p 27691
+
+查看端口号8080占用情况
+sudo lsof -i -n -P | grep 8080
+```
+```
+sudo lsof -i -n -P | grep 8554
+Password:
+live555Me 5655       zhangbin    3u  IPv4 0xdaa50a0010d9f17f      0t0    TCP *:8554 (LISTEN)
+ zhangbin@bogon
+```

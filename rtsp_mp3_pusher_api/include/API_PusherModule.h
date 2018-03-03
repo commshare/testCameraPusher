@@ -10,6 +10,7 @@
 #define API_PUSHER_MODULE_H
 
 #include "API_PusherTypes.h"
+#include <plog/Log.h> // Step1: include the header. /*https://github.com/SergiusTheBest/plog*/
 
 #ifdef __cplusplus
 extern "C"

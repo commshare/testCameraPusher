@@ -1,0 +1,77 @@
+﻿2018-03-02 21:51:32.148 DEBUG [506141] [main@206] Hello log!
+2018-03-02 21:51:32.149 DEBUG [506141] [main@241] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 21:51:32.149 DEBUG [506141] [main@242] START PUSH STREAM :
+2018-03-02 21:56:44.904 DEBUG [510031] [main@206] Hello log!
+2018-03-02 21:56:44.905 DEBUG [510031] [main@241] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 21:56:44.905 DEBUG [510031] [main@242] START PUSH STREAM :
+2018-03-02 22:29:38.837 DEBUG [524489] [main@206] Hello log!
+2018-03-02 22:29:38.838 DEBUG [524489] [main@241] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 22:29:38.838 DEBUG [524489] [main@242] START PUSH STREAM :
+2018-03-02 22:29:38.838 DEBUG [524489] [main@244] START PUSH STREAM ret :-1
+2018-03-02 22:39:13.666 DEBUG [528804] [main@206] Hello log!
+2018-03-02 22:39:13.667 DEBUG [528804] [main@241] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 22:39:13.667 DEBUG [528804] [main@242] START PUSH STREAM :
+2018-03-02 22:39:13.668 DEBUG [528804] [main@244] START PUSH STREAM ret :-1
+2018-03-02 22:40:16.187 DEBUG [529879] [main@205] Hello log!
+2018-03-02 22:40:16.187 DEBUG [529879] [main@240] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 22:40:16.188 DEBUG [529879] [main@241] START PUSH STREAM :
+2018-03-02 22:40:16.188 DEBUG [529879] [main@243] START PUSH STREAM ret :-1
+2018-03-02 22:43:26.945 DEBUG [532629] [main@205] Hello log!
+2018-03-02 22:43:26.946 DEBUG [532629] [main@240] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 22:43:26.946 DEBUG [532629] [main@241] START PUSH STREAM :
+2018-03-02 22:43:26.946 DEBUG [532629] [PusherHandler::startStream@91] generateSDPString RET :0
+2018-03-02 22:43:26.946 DEBUG [532629] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 22:43:26.947 DEBUG [532629] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 22:43:26.947 DEBUG [532629] [main@243] START PUSH STREAM ret :-1
+2018-03-02 23:11:24.178 DEBUG [543528] [main@205] Hello log!
+2018-03-02 23:11:24.179 DEBUG [543528] [main@240] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 23:11:24.179 DEBUG [543528] [main@241] START PUSH STREAM :
+2018-03-02 23:11:24.179 DEBUG [543528] [PusherHandler::startStream@91] generateSDPString RET :0
+2018-03-02 23:11:24.179 DEBUG [543528] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 23:11:24.180 DEBUG [543528] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :36
+2018-03-02 23:11:24.180 DEBUG [543528] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 23:11:24.180 DEBUG [543528] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :32
+2018-03-02 23:11:24.180 DEBUG [543528] [main@243] START PUSH STREAM ret :-1
+2018-03-02 23:18:20.987 DEBUG [547412] [main@205] Hello log!
+2018-03-02 23:18:20.988 DEBUG [547412] [main@240] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 23:18:20.988 DEBUG [547412] [main@241] START PUSH STREAM :
+2018-03-02 23:18:20.988 DEBUG [547412] [PusherHandler::startStream@91] generateSDPString RET :0
+2018-03-02 23:18:20.988 DEBUG [547412] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 23:18:20.988 DEBUG [547412] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :36
+2018-03-02 23:18:20.989 DEBUG [547412] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 23:18:20.989 DEBUG [547412] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :32
+2018-03-02 23:18:20.989 DEBUG [547412] [main@243] START PUSH STREAM ret :-1
+2018-03-02 23:30:26.701 DEBUG [555847] [main@205] Hello log!
+2018-03-02 23:30:26.701 DEBUG [555847] [main@240] URL :rtsp://127.0.0.1/zz1985.sdp
+2018-03-02 23:30:26.701 DEBUG [555847] [main@241] START PUSH STREAM :
+2018-03-02 23:30:26.702 DEBUG [555847] [PusherHandler::startStream@91] generateSDPString RET :0
+2018-03-02 23:30:26.702 DEBUG [555847] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 23:30:26.702 DEBUG [555847] [MyDarwin::RTSPClient::DoTransaction@495] DoTransaction STATE :0
+2018-03-02 23:30:26.702 DEBUG [555847] [MyDarwin::RTSPClient::DoTransaction@495] DoTransaction STATE :1
+2018-03-02 23:30:26.702 DEBUG [555847] [MyDarwin::RTSPClient::DoTransaction@526] 36
+2018-03-02 23:30:26.702 DEBUG [555847] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :36
+2018-03-02 23:30:26.702 DEBUG [555847] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-02 23:30:26.702 DEBUG [555847] [MyDarwin::RTSPClient::DoTransaction@495] DoTransaction STATE :1
+2018-03-02 23:30:26.702 DEBUG [555847] [MyDarwin::RTSPClient::DoTransaction@526] 32
+2018-03-02 23:30:26.702 DEBUG [555847] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :32
+2018-03-02 23:30:26.702 DEBUG [555847] [main@243] START PUSH STREAM ret :-1
+2018-03-03 15:24:25.967 DEBUG [678252] [main@211] ---------Hello pusher!------
+2018-03-03 15:24:25.967 DEBUG [678252] [main@246] URL :rtsp://192.168.43.155/zz1985.sdp
+2018-03-03 15:24:25.967 DEBUG [678252] [main@247] START PUSH STREAM :
+2018-03-03 15:24:25.968 DEBUG [678252] [PusherHandler::startStream@91] generateSDPString RET :0
+2018-03-03 15:24:25.968 DEBUG [678252] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-03 15:24:25.968 DEBUG [678252] [MyDarwin::RTSPClient::DoTransaction@495] DoTransaction STATE :0
+2018-03-03 15:24:25.968 DEBUG [678252] [MyDarwin::RTSPClient::DoTransaction@495] DoTransaction STATE :1
+2018-03-03 15:24:25.968 DEBUG [678252] [TCPClientSocket::SendV@156] TCPClientSocket Connect err :36
+2018-03-03 15:24:25.968 DEBUG [678252] [MyDarwin::RTSPClient::DoTransaction@526] RTSPClient::DoTransaction Send len58err:36
+2018-03-03 15:24:25.968 DEBUG [678252] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :36
+2018-03-03 15:24:25.968 DEBUG [678252] [PusherHandler::SetupStream@251] SetupStream : STATE :0
+2018-03-03 15:24:25.968 DEBUG [678252] [MyDarwin::RTSPClient::DoTransaction@495] DoTransaction STATE :1
+2018-03-03 15:24:25.968 DEBUG [678252] [ClientSocket::SendSendBuffer@103] Message wasn't entirely sent. Caller should wait for a read event on the POST socket inSocket->Send ERR 32
+2018-03-03 15:24:25.968 DEBUG [678252] [MyDarwin::RTSPClient::DoTransaction@526] RTSPClient::DoTransaction Send len58err:32
+2018-03-03 15:24:25.968 DEBUG [678252] [PusherHandler::SetupStream@270] m_rtspClient->SendOptions() ERR2 :32
+2018-03-03 15:24:25.968 DEBUG [678252] [main@249] START PUSH STREAM ret :-1
+2018-03-03 15:25:17.545 DEBUG [678252] [main@254] ----1---
+2018-03-03 15:25:17.545 DEBUG [678252] [MyDarwin::RTSPClient::DoTransaction@495] DoTransaction STATE :1
+2018-03-03 15:25:17.545 DEBUG [678252] [TCPClientSocket::SendV@156] TCPClientSocket Connect err :9
+2018-03-03 15:25:17.545 DEBUG [678252] [MyDarwin::RTSPClient::DoTransaction@526] RTSPClient::DoTransaction Send len58err:9
