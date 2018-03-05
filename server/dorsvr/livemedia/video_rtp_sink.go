@@ -1,6 +1,6 @@
 package livemedia
 
-import gs "github.com/djwackey/dorsvr/groupsock"
+import gs "../groupsock"
 
 type VideoRTPSink struct {
 	MultiFramedRTPSink

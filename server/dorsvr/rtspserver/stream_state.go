@@ -1,6 +1,6 @@
 package rtspserver
 
-import "github.com/djwackey/dorsvr/livemedia"
+import "../livemedia"
 
 type StreamServerState struct {
 	subsession  livemedia.IServerMediaSubsession

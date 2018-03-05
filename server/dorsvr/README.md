@@ -1,3 +1,6 @@
+## 20180304 from https://github.com/djwackey/dorsvr/issues)
+## 20180305 modify TimeVal int64 int32 for darwin amd64 
+
 Dorsvr Streaming Server
 =======================
 
