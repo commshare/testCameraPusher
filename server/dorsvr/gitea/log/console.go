@@ -42,7 +42,11 @@ type ConsoleWriter struct {
 // NewConsole create ConsoleWriter returning as LoggerInterface.
 func NewConsole() LoggerInterface {
 	return &ConsoleWriter{
-		lg:    log.New(os.Stdout, "", log.Ldate|log.Ltime),
+		/*
+		// Enable line numbers in logging
+    log.SetFlags(log.LstdFlags | log.Lshortfile)
+		*/
+		lg:    log.New(os.Stdout, "", log.Ldate|log.Ltime | log.LstdFlags | log.Lshortfile),
 		Level: TRACE,
 	}
 }
