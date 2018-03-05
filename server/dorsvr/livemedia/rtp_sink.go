@@ -5,7 +5,7 @@ import (
 	"net"
 	sys "syscall"
 
-	gs "../groupsock"
+	gs "github.com/djwackey/dorsvr/groupsock"
 	//"github.com/djwackey/dorsvr/log"
 )
 

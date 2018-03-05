@@ -4,7 +4,7 @@ import (
 	"fmt"
 	sys "syscall"
 
-	gs "../groupsock"
+	gs "github.com/djwackey/dorsvr/groupsock"
 )
 
 var libNameStr string = "Dor Streaming Media v"

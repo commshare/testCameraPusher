@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	gs "../groupsock"
+	gs "github.com/djwackey/dorsvr/groupsock"
 )
 
 //////// MediaSession ////////

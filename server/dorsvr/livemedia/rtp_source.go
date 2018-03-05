@@ -1,6 +1,6 @@
 package livemedia
 
-import gs "../groupsock"
+import gs "github.com/djwackey/dorsvr/groupsock"
 
 type RTPSource struct {
 	FramedSource

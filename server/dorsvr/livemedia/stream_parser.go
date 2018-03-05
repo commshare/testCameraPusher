@@ -4,7 +4,7 @@ import (
 	"errors"
 	sys "syscall"
 
-	"../gitea/log"
+	"github.com/djwackey/gitea/log"
 )
 
 const bankSize uint = 150000
