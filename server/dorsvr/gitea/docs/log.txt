@@ -1,0 +1,2 @@
+#https://github.com/gogits/gogs/tree/master/vendor/gopkg.in/clog.v1
+# replace log with clog

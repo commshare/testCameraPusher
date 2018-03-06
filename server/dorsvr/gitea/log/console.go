@@ -1,84 +1,112 @@
-// Copyright 2014 The Gogs Authors. All rights reserved.
-// Use of this source code is governed by a MIT-style
-// license that can be found in the LICENSE file.
+// Copyright 2017 Unknwon
+//
+// Licensed under the Apache License, Version 2.0 (the "License"): you may
+// not use this file except in compliance with the License. You may obtain
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations
+// under the License.
 
 package log
 
 import (
-	"encoding/json"
 	"log"
-	"os"
-	"runtime"
+
+	"github.com/fatih/color"
 )
 
-// Brush brush type
-type Brush func(string) string
+const CONSOLE MODE = "console"
 
-// NewBrush create a brush according color
-func NewBrush(color string) Brush {
-	pre := "\033["
-	reset := "\033[0m"
-	return func(text string) string {
-		return pre + color + "m" + text + reset
+// Console color set for different levels.
+var consoleColors = []func(a ...interface{}) string{
+	color.New(color.FgBlue).SprintFunc(),   // Trace
+	color.New(color.FgGreen).SprintFunc(),  // Info
+	color.New(color.FgYellow).SprintFunc(), // Warn
+	color.New(color.FgRed).SprintFunc(),    // Error
+	color.New(color.FgHiRed).SprintFunc(),  // Fatal
+}
+
+type ConsoleConfig struct {
+	// Minimum level of messages to be processed.
+	Level LEVEL
+	// Buffer size defines how many messages can be queued before hangs.
+	BufferSize int64
+}
+
+type console struct {
+	*log.Logger
+	Adapter
+}
+
+func newConsole() Logger {
+	return &console{
+		Logger: log.New(color.Output, "", log.Ldate|log.Ltime),
+		Adapter: Adapter{
+			quitChan: make(chan struct{}),
+		},
 	}
 }
 
-var colors = []Brush{
-	NewBrush("1;36"), // Trace      cyan
-	NewBrush("1;34"), // Debug      blue
-	NewBrush("1;32"), // Info       green
-	NewBrush("1;33"), // Warn       yellow
-	NewBrush("1;31"), // Error      red
-	NewBrush("1;35"), // Critical   purple
-	NewBrush("1;31"), // Fatal      red
-}
+func (c *console) Level() LEVEL { return c.level }
 
-// ConsoleWriter implements LoggerInterface and writes messages to terminal.
-type ConsoleWriter struct {
-	lg    *log.Logger
-	Level int `json:"level"`
-}
-
-// NewConsole create ConsoleWriter returning as LoggerInterface.
-func NewConsole() LoggerInterface {
-	return &ConsoleWriter{
-		/*
-		// Enable line numbers in logging
-    log.SetFlags(log.LstdFlags | log.Lshortfile)
-		*/
-		lg:    log.New(os.Stdout, "", log.Ldate|log.Ltime ),
-		Level: TRACE,
+func (c *console) Init(v interface{}) error {
+	cfg, ok := v.(ConsoleConfig)
+	if !ok {
+		return ErrConfigObject{"ConsoleConfig", v}
 	}
-}
 
-// Init inits connection writer with json config.
-// json config only need key "level".
-func (cw *ConsoleWriter) Init(config string) error {
-	return json.Unmarshal([]byte(config), cw)
-}
+	if !isValidLevel(cfg.Level) {
+		return ErrInvalidLevel{}
+	}
+	c.level = cfg.Level
 
-// WriteMsg writes message in console.
-// if OS is windows, ignore colors.
-func (cw *ConsoleWriter) WriteMsg(msg string, skip, level int) error {
-	if cw.Level > level {
-		return nil
-	}
-	if runtime.GOOS == "windows" {
-		cw.lg.Println(msg)
-	} else {
-		cw.lg.Println(colors[level](msg))
-	}
+	c.msgChan = make(chan *Message, cfg.BufferSize)
 	return nil
 }
 
-// Flush when log should be flushed
-func (cw *ConsoleWriter) Flush() {
+func (c *console) ExchangeChans(errorChan chan<- error) chan *Message {
+	c.errorChan = errorChan
+	return c.msgChan
 }
 
-// Destroy when writer is destroy
-func (cw *ConsoleWriter) Destroy() {
+func (c *console) write(msg *Message) {
+	c.Logger.Print(consoleColors[msg.Level](msg.Body))
+}
+
+func (c *console) Start() {
+LOOP:
+	for {
+		select {
+		case msg := <-c.msgChan:
+			c.write(msg)
+		case <-c.quitChan:
+			break LOOP
+		}
+	}
+
+	for {
+		if len(c.msgChan) == 0 {
+			break
+		}
+
+		c.write(<-c.msgChan)
+	}
+	c.quitChan <- struct{}{} // Notify the cleanup is done.
+}
+
+func (c *console) Destroy() {
+	c.quitChan <- struct{}{}
+	<-c.quitChan
+
+	close(c.msgChan)
+	close(c.quitChan)
 }
 
 func init() {
-	Register("console", NewConsole)
+	Register(CONSOLE, newConsole)
 }

@@ -19,10 +19,11 @@ var (
 	loggers []*Logger
 	// GitLogger logger for git
 	GitLogger *Logger
+	ShowLineNumberLevel = ERROR
 )
-
+/*外部要调用这个*/
 // NewLogger create a logger
-func NewLogger(bufLen int64, mode, config string) {
+func NewLogger(bufLen int64, mode, config string /*配置是一个字符串，json串*/,showLineNumber bool) {
 	logger := newLogger(bufLen)
 
 	isExist := false
@@ -37,6 +38,9 @@ func NewLogger(bufLen int64, mode, config string) {
 	}
 	if err := logger.SetLogger(mode, config); err != nil {
 		Fatal(2, "Failed to set logger (%s): %v", mode, err)
+	}
+	if showLineNumber== true {
+		ShowLineNumberLevel = TRACE
 	}
 }
 
@@ -219,6 +223,8 @@ func (l *Logger) DelLogger(adapter string) error {
 }
 
 func (l *Logger) writerMsg(skip, level int, msg string) error {
+	fmt.Printf("------log WriteMsg----\n")
+
 	if l.level > level {
 		return nil
 	}
@@ -228,7 +234,7 @@ func (l *Logger) writerMsg(skip, level int, msg string) error {
 	}
 
 	// Only error information needs locate position for debugging.
-	if lm.level >= ERROR {
+	if lm.level >= /*ERROR*/ ShowLineNumberLevel /*控制是否要显示行号*/{
 		pc, file, line, ok := runtime.Caller(skip)
 		if ok {
 			// Get caller function name.
@@ -317,6 +323,7 @@ func (l *Logger) Debug(format string, v ...interface{}) {
 
 // Info records information log
 func (l *Logger) Info(format string, v ...interface{}) {
+	/*封装消息，然后传递给本log类的writerMsg*/
 	msg := fmt.Sprintf("[I] "+format, v...)
 	l.writerMsg(0, INFO, msg)
 }
@@ -329,8 +336,8 @@ func (l *Logger) Warn(format string, v ...interface{}) {
 
 // Error records error log
 func (l *Logger) Error(skip int, format string, v ...interface{}) {
-	msg := fmt.Sprintf("[E] "+format, v...)
-	l.writerMsg(skip, ERROR, msg)
+	//msg := fmt.Sprintf("[E] "+format, v...)
+	l.Write(skip, ERROR, format,v...)
 }
 
 // Critical records critical log
@@ -345,4 +352,42 @@ func (l *Logger) Fatal(skip int, format string, v ...interface{}) {
 	l.writerMsg(skip, FATAL, msg)
 	l.Close()
 	os.Exit(1)
+}
+func (l *Logger) Write(skip, level int, format string, v ...interface{}) error {
+	fmt.Printf("------log Write----\n")
+
+	if l.level > level {
+		return nil
+	}
+	lm := &logMsg{
+		skip:  skip,
+		level: level,
+	}
+	msg := fmt.Sprintf("[] "+format, v...)
+	// Only error information needs locate position for debugging.
+	if lm.level >= /*ERROR*/ ShowLineNumberLevel /*控制是否要显示行号*/{
+		pc, file, line, ok := runtime.Caller(skip)
+		if ok {
+			// Get caller function name.
+			fn := runtime.FuncForPC(pc)
+			var fnName string
+			if fn == nil {
+				fnName = "?()"
+			} else {
+				fnName = strings.TrimLeft(filepath.Ext(fn.Name()), ".") + "()"
+			}
+
+			fileName := file
+			if len(fileName) > 20 {
+				fileName = "..." + fileName[len(fileName)-20:]
+			}
+			lm.msg = fmt.Sprintf("[%s:%d %s] %s", fileName, line, fnName, msg)
+		} else {
+			lm.msg = msg
+		}
+	} else {
+		lm.msg = msg
+	}
+	l.msg <- lm
+	return nil
 }
