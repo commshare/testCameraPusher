@@ -10,6 +10,9 @@ import (
 	gs "../groupsock"
 	"../livemedia"
 	"../gitea/log"
+	"../rtspclient"
+	"../sdp"
+	"../util"
 )
 
 const rtspBufferSize = 10000
@@ -50,8 +53,10 @@ func (c *RTSPClientConnection) incomingRequestHandler() {
 	var isclose bool
 	buffer := make([]byte, rtspBufferSize)
 	for {
-		length, err := c.socket.Read(buffer)
-
+		length, err := c.socket.Read(buffer)/* length 是实际读取到的数据量*/
+		if length <= 0 {
+			fmt.Println("没读取到内容")
+		}
 		switch err {
 		case nil:
 			err = c.handleRequestBytes(buffer, length)
@@ -100,12 +105,14 @@ func (c *RTSPClientConnection) handleRequestBytes(buffer []byte, length int) err
 			{
 				if sessionIDStr == "" {
 					for {
+						/*每个session有一个id*/
 						sessionIDStr = fmt.Sprintf("%08X", gs.OurRandom32())
 						if _, existed = c.server.getClientSession(sessionIDStr); !existed {
 							break
 						}
 					}
 					clientSession = c.newClientSession(sessionIDStr)
+					/*id和实例一一对应*/
 					c.server.addClientSession(sessionIDStr, clientSession)
 				} else {
 					if clientSession, existed = c.server.getClientSession(sessionIDStr); !existed {
@@ -126,6 +133,8 @@ func (c *RTSPClientConnection) handleRequestBytes(buffer []byte, length int) err
 					c.handleCommandSessionNotFound()
 				}
 			}
+		case rtspclient.ANNOUNCE:
+			c.handleAnnounce(reqStr,length)
 		case "RECORD":
 		default:
 			c.handleCommandNotSupported()
@@ -147,7 +156,7 @@ func (c *RTSPClientConnection) handleRequestBytes(buffer []byte, length int) err
 			c.handleCommandBad()
 		}
 	}
-
+	/*应答发送给客户端*/
 	sendBytes, err := c.socket.Write([]byte(c.responseBuffer))
 	if err != nil {
 		log.Error(4, "failed to send response buffer.%d", sendBytes)
@@ -156,7 +165,169 @@ func (c *RTSPClientConnection) handleRequestBytes(buffer []byte, length int) err
 	log.Info("send response:\n%s", c.responseBuffer)
 	return nil
 }
+/*
+ANNOUNCE的是这样的：
+ANNOUNCE rtsp://127.0.0.1:8554/zhangbin.sdp&token=1 RTSP/1.0
+CSeq: 2
+Content-Type: application/sdp
+User-agent: RTSPPusherNode
+Content-Length: 327
 
+v=0
+o=- 2813265695 2813265695 IN IP4 127.0.0.1
+s=PusherClient
+i=RTSP PusherNode
+c=IN IP4 127.0.0.1
+t=0 0
+a=x-qt-text-nam:PusherClient
+a=x-qt-text-inf:RTSP PusherNode
+a=x-qt-text-cmt:source application:PusherClient
+a=x-qt-text-aut:
+a=x-qt-text-cpy:
+m=audio 0 RTP/AVP 14
+a=control:trackID=1
+a=rtpmap:14 MPA/44100/2
+*/
+func(c * RTSPClientConnection) readRequest(buffer_i []byte,length int )(req *rtspclient.Request, err error) {
+	fmt.Println("#######buffer:", string(buffer_i))
+	/*分配内存*/
+	req = &rtspclient.Request{
+		Header: make(map[string][]string),
+	}
+	//old_len := leni
+	leni := length
+	buffer := buffer_i[:leni] /*获取有效内容到buffer*/
+	/*其实在这个程序里，buffer就是buffer_i了，这就是已经从conn里读过的*/
+
+	{
+		lenc := rtspclient.GetContentLength(string(buffer_i))
+
+		for {
+			if leni < int(lenc) {
+				/*n, err := r.Read(buffer_i[leni:])
+				if n > 0 {
+					leni += n
+				}
+				if err != nil {
+					return nil, err
+				}
+				buffer = buffer_i[:leni]*/
+				fmt.Printf("---error : leni < lenc \n")
+				return nil,err
+			} else {
+				break
+			}
+		}
+
+	}
+	/*for {
+		fmt.Println(buffer)
+		fmt.Println(string(buffer))
+		if  buffer[leni - 4] == '\r' && buffer[leni - 3] == '\n' && buffer[leni - 2] == '\r' && buffer[leni - 1] == '\n' {
+			fmt.Println("OK")
+			break
+		}
+		//break
+		fmt.Println([]byte("\r\n"))
+		//fmt.Println(buffer)
+
+		n, err := r.Read(buffer_i[leni:])
+		if n > 0 {
+			leni += n
+		}
+		if err != nil {
+			return nil, err
+		}
+		buffer = buffer_i[:leni]
+	}*/
+
+	recv := string(buffer)
+	//	fmt.Println("######recv:",recv)
+
+	req.Content = recv
+	context := strings.SplitN(recv, "\r\n\r\n", 2)
+	header := context[0]
+	var body string
+	if len(context) > 1 {
+		body = context[1]
+	}
+
+	parts := strings.SplitN(header, "\r\n", 2)
+	dest := parts[0]
+	var prop string
+	if len(parts) > 1 {
+		prop = parts[1]
+	}
+
+	parts = strings.SplitN(dest, " ", 3)
+	req.Method = parts[0]
+	if len(parts) > 2 {
+		req.URL = parts[1]
+		req.Version = parts[2]
+	}
+
+	pairs := strings.Split(prop, "\r\n")
+	for _, pair := range pairs {
+		parts = strings.SplitN(pair, ": ", 2)
+		key := parts[0]
+		if len(parts) > 1 {
+			value := parts[1]
+			req.Header.Add(key, value)
+		} else {
+			req.Header.Add(key, "")
+		}
+
+	}
+
+	req.Body = string(body)
+	return req, nil
+}
+func (c * RTSPClientConnection)handleAnnounce( reqstr string,length int)  {
+	req,err := c.readRequest([]byte(reqstr),length)
+	if err != nil {
+		log.Error(4,"read request fail :err %v",err)
+		c.handleCommandBad()
+	}
+	{
+		fmt.Println("handleAnnounce ,req.Content : ", req.Content)
+		//
+		infos := sdp.Decode(req.Content)
+		for _, info := range infos {
+			if strings.EqualFold(info.AVType, "video") {
+				//conn.control = info.Control
+				log.Info("got video ")
+			}
+		}
+
+		sdpName := util.GetSdpName(req.URL)
+		log.Info("got sdp :%v",sdpName)
+		/*_, exits := media.NewMediaSession(sdpName, req.Body)
+		if exits != nil {
+			fmt.Println(exits)
+		}
+		manager := RtspClientManager.NewClientManager(req.URL)
+		conn.manager = manager
+		conn.manager.DEBUG()
+		conn.url = req.URL
+
+		if len(cSeq) == 0 {
+			cSeq = "0"
+		}
+		//seq,_ := strconv.ParseInt(cSeq,10,64)
+		//cSeq = strconv.FormatInt(seq + 1,10)
+
+		resp := RtspClientManager.NewResponse(RtspClientManager.OK, "OK", cSeq, "")
+		if resp != nil {
+			//time.Sleep(1 * time.Second)
+			//conn.conn.Write([]byte(resp.String()))
+		}
+*/
+		//fmt.Printf("------ Session[%s] : set response ------ \n%s\n", conn.conn.RemoteAddr(), resp)
+	}
+	c.handleCommandOptions()
+	fmt.Println("------conn.pushClient = true---------- ")
+	//conn.pushClient = true
+}
 func (c *RTSPClientConnection) handleCommandOptions() {
 	c.responseBuffer = fmt.Sprintf("RTSP/1.0 200 OK\r\n"+
 		"CSeq: %s\r\n"+

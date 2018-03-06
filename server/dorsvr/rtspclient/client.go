@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/djwackey/dorsvr/auth"
-	gs "github.com/djwackey/dorsvr/groupsock"
-	"github.com/djwackey/dorsvr/livemedia"
+	"../auth"
+	gs "../groupsock"
+	"../livemedia"
 )
 
 // default value; you can reassign this in your application if you need to

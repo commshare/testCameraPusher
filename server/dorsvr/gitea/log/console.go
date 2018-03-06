@@ -46,7 +46,7 @@ func NewConsole() LoggerInterface {
 		// Enable line numbers in logging
     log.SetFlags(log.LstdFlags | log.Lshortfile)
 		*/
-		lg:    log.New(os.Stdout, "", log.Ldate|log.Ltime | log.LstdFlags | log.Lshortfile),
+		lg:    log.New(os.Stdout, "", log.Ldate|log.Ltime ),
 		Level: TRACE,
 	}
 }

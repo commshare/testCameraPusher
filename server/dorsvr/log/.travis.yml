@@ -1,0 +1,30 @@
+language: go
+sudo: false
+go:
+  - 1.8
+  - 1.9
+  - tip
+
+matrix:
+  include:
+    - os: linux
+      before_install:
+        - go get github.com/NiuStar/utils
+        - go get github.com/NiuStar/log
+<<<<<<< HEAD
+        - go get github.com/petermattis/goid
+    - os: osx
+      before_install:
+        - go get github.com/NiuStar/utils
+        - go get github.com/NiuStar/log
+=======
+>>>>>>> origin/master
+        - go get github.com/petermattis/goid
+    - os: windows
+      before_install:
+        - go get github.com/NiuStar/utils
+        - go get github.com/NiuStar/log
+        - go get github.com/petermattis/goid
+
+script:
+  - cd example && go build && ls -l && cd ..

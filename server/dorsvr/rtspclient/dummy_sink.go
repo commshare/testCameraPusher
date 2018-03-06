@@ -4,7 +4,7 @@ import (
 	"fmt"
 	sys "syscall"
 
-	"github.com/djwackey/dorsvr/livemedia"
+	"../livemedia"
 )
 
 type DummySink struct {
@@ -32,7 +32,8 @@ func (s *DummySink) AfterGettingFrame(frameSize, durationInMicroseconds uint,
 	//return
 	fmt.Printf("Stream \"%s\"; %s/%s:\tReceived %d bytes.\tPresentation Time: %f\n",
 		s.streamID, s.subsession.MediumName(), s.subsession.CodecName(), frameSize,
-		float32(presentationTime.Sec/1000/1000+presentationTime.Usec))
+			/*todo int64 变int32*/
+		float32(int32(presentationTime.Sec/1000/1000)+presentationTime.Usec))
 }
 
 func (s *DummySink) ContinuePlaying() {

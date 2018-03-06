@@ -138,7 +138,7 @@ func (s *RTSPClientSession) handleCommandSetup(urlPreSuffix, urlSuffix, reqStr s
 	serverRTCPPort := streamParameter.ServerRTCPPort
 
 	s.streamStates.streamToken = streamParameter.StreamToken
-
+	/*多播*/
 	if s.isMulticast {
 		switch streamingMode {
 		case livemedia.RTP_UDP:
@@ -172,7 +172,7 @@ func (s *RTSPClientSession) handleCommandSetup(urlPreSuffix, urlSuffix, reqStr s
 				s.sessionID)
 		default:
 		}
-	} else {
+	} else {/*单播*/
 		switch streamingMode {
 		case livemedia.RTP_UDP:
 			s.connection.responseBuffer = fmt.Sprintf("RTSP/1.0 200 OK\r\n"+
