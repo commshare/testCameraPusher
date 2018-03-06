@@ -11,51 +11,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="slack.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gitea/log/slack.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="slack_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gitea/log/slack_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="conn.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gitea/logno/conn.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="clog.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gitea/log/clog.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-234">
-              <caret line="107" column="7" lean-forward="false" selection-start-line="107" selection-start-column="7" selection-end-line="107" selection-end-column="7" />
+            <state relative-caret-position="-5">
+              <caret line="78" column="20" lean-forward="false" selection-start-line="78" selection-start-column="20" selection-end-line="78" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="log.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gitea/logno/log.go">
+      <file leaf-file-name="extern.go" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/go/src/runtime/extern.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2123">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="213">
+              <caret line="174" column="5" lean-forward="false" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mainlog_no.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gitea/main/mainlog_no.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+              <folding>
+                <element signature="e#14#48#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mainlog_clog.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gitea/main/mainlog_clog.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
+              <folding>
+                <element signature="e#14#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logger.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gitea/log/logger.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="82" column="8" lean-forward="false" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="8" />
+              <folding>
+                <element signature="e#598#610#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -83,16 +99,6 @@
       </file>
       <file leaf-file-name="error.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gitea/log/error.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clog_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gitea/log/clog_test.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
               <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
@@ -132,8 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/livemedia/h264_video_rtp_sink.go" />
-        <option value="$PROJECT_DIR$/livemedia/media_sink.go" />
         <option value="$PROJECT_DIR$/livemedia/rtp_interface.go" />
         <option value="$PROJECT_DIR$/livemedia/h264_video_rtp_source.go" />
         <option value="$PROJECT_DIR$/livemedia/media_session.go" />
@@ -170,18 +174,20 @@
         <option value="$PROJECT_DIR$/rtspserver/connection.go" />
         <option value="$PROJECT_DIR$/gitea/main/mainlog.go" />
         <option value="$PROJECT_DIR$/gitea/log/log.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/gitea/docs/log.txt" />
         <option value="$PROJECT_DIR$/gitea/log/console.go" />
         <option value="$PROJECT_DIR$/gitea/log/error.go" />
         <option value="$PROJECT_DIR$/gitea/log/file.go" />
-        <option value="$PROJECT_DIR$/gitea/log/logger.go" />
         <option value="$PROJECT_DIR$/gitea/log/logger_test.go" />
         <option value="$PROJECT_DIR$/gitea/log/slack.go" />
         <option value="$PROJECT_DIR$/gitea/log/slack_test.go" />
         <option value="$PROJECT_DIR$/gitea/log/clog_test.go" />
         <option value="$PROJECT_DIR$/gitea/log/file_test.go" />
         <option value="$PROJECT_DIR$/gitea/log/console_test.go" />
+        <option value="$PROJECT_DIR$/gitea/log/logger.go" />
+        <option value="$PROJECT_DIR$/gitea/main/mainlog_clog.go" />
+        <option value="$PROJECT_DIR$/gitea/main/mainlog_no.go" />
+        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/gitea/log/clog.go" />
       </list>
     </option>
@@ -267,6 +273,12 @@
             <path>
               <item name="dorsvr" type="b2602c69:ProjectViewProjectNode" />
               <item name="dorsvr" type="462c0819:PsiDirectoryNode" />
+              <item name="gitea" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dorsvr" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dorsvr" type="462c0819:PsiDirectoryNode" />
               <item name="rtspserver" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -286,6 +298,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/gitea/main" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/rtspclient" />
       <recent name="$PROJECT_DIR$/livemedia" />
@@ -303,7 +316,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build mainlog_no.go">
+    <configuration name="go build mainlog_clog.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="dorsvr" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/gitea/main/mainlog_clog.go" />
+      <directory value="$PROJECT_DIR$/" />
+    </configuration>
     <configuration name="go build mainlog.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
       <module name="dorsvr" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -312,9 +333,24 @@
       <filePath value="$PROJECT_DIR$/gitea/main/mainlog.go" />
       <directory value="$PROJECT_DIR$/" />
     </configuration>
+    <configuration name="go build mainlog_no.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="dorsvr" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/gitea/main/mainlog_no.go" />
+      <directory value="$PROJECT_DIR$/" />
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Go Build.go build mainlog.go" />
+      <item index="1" class="java.lang.String" itemvalue="Go Build.go build mainlog_clog.go" />
+      <item index="2" class="java.lang.String" itemvalue="Go Build.go build mainlog_no.go" />
+    </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Go Build.go build mainlog.go" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Go Build.go build mainlog_no.go" />
+        <item index="1" class="java.lang.String" itemvalue="Go Build.go build mainlog_clog.go" />
+        <item index="2" class="java.lang.String" itemvalue="Go Build.go build mainlog.go" />
       </list>
     </recent_temporary>
   </component>
@@ -352,25 +388,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/livemedia/rtp_reception_stats.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3434">
-          <caret line="227" column="17" lean-forward="false" selection-start-line="227" selection-start-column="17" selection-end-line="227" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/livemedia/byte_stream_file_source.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="74" column="63" lean-forward="false" selection-start-line="74" selection-start-column="63" selection-end-line="74" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/livemedia/framed_source.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -614,16 +636,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitea/main/mainlog.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="49" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="54" />
-          <folding>
-            <element signature="e#14#46#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gitea/log/log.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="237">
@@ -637,16 +649,6 @@
         <state relative-caret-position="187">
           <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#106#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -675,14 +677,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gitea/log/file_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gitea/log/logger.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
@@ -746,14 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitea/log/console.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gitea/log/console_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -764,16 +750,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gitea/logno/log.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2123">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="-598">
+          <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/runtime/extern.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="174" column="5" lean-forward="false" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitea/log/logger.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="82" column="8" lean-forward="false" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="8" />
+          <folding>
+            <element signature="e#598#610#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitea/log/console.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitea/main/mainlog_no.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+          <folding>
+            <element signature="e#14#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitea/main/mainlog_clog.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
+          <folding>
+            <element signature="e#14#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gitea/log/clog.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-234">
-          <caret line="107" column="7" lean-forward="false" selection-start-line="107" selection-start-column="7" selection-end-line="107" selection-end-column="7" />
+        <state relative-caret-position="-5">
+          <caret line="78" column="20" lean-forward="false" selection-start-line="78" selection-start-column="20" selection-end-line="78" selection-end-column="20" />
           <folding />
         </state>
       </provider>

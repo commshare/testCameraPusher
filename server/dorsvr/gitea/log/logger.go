@@ -39,7 +39,7 @@ type Adapter struct {
 }
 
 type Factory func() Logger
-
+/*根据mode记录不同的构造函数在map里*/
 // factories keeps factory function of registered loggers.
 var factories = map[MODE]Factory{}
 
@@ -80,7 +80,7 @@ func init() {
 		}
 	}()
 }
-
+/*外部调用这个*/
 // New initializes and appends a new logger to the receiver list.
 // Calling this function multiple times will overwrite previous logger with same mode.
 func New(mode MODE, cfg interface{}) error {

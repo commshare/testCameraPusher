@@ -45,7 +45,12 @@ const (
 	ERROR
 	FATAL
 )
-
+/*var (
+	ShowLineNumberLevel = ERROR
+)*/
+var (
+	bShowline = false
+)
 var formats = map[LEVEL]string{
 	TRACE: "[TRACE] ",
 	DEBUG:"[DEBUG]",
@@ -65,7 +70,14 @@ type Message struct {
 	Level LEVEL
 	Body  string
 }
-
+/*SHOW LINE FOR ALL LEVEL */
+func SetShowLine(Showline bool){
+/*	if bShowline == true {
+		ShowLineNumberLevel = TRACE
+	}*/
+	bShowline = Showline
+	fmt.Printf("set showline %v\n",Showline)
+}
 func Write(level LEVEL, skip int, format string, v ...interface{}) {
 	msg := &Message{
 		Level: level,
@@ -73,7 +85,10 @@ func Write(level LEVEL, skip int, format string, v ...interface{}) {
 
 	// Only error and fatal information needs locate position for debugging.
 	// But if skip is 0 means caller doesn't care so we can skip.
-	if msg.Level >= ERROR && skip > 0 {
+	if (msg.Level >= ERROR && skip > 0 )|| (bShowline == true ){
+		if bShowline == true {
+			skip = 2 /*真正决定能否打印到外层调用者*/
+		}
 		pc, file, line, ok := runtime.Caller(skip)
 		if ok {
 			// Get caller function name.

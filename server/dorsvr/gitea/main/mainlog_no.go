@@ -1,12 +1,12 @@
 package main
 
 import (
-	log "../log"
+	log "../logno"
 
 	"fmt"
 )
 
-func main() {
+func logno(){
 	//err := log.New(log.CONSOLE, log.ConsoleConfig{})
 	// open a logger writer of console or file mode.
 	mode := "console"
@@ -25,6 +25,11 @@ func main() {
 	log.Error(0,"-3-Hello %s!", "Clog")
 	fmt.Print("--------before log error skip 2-----------\n")
 	log.Error(2,"-4-Hello %s!", "Clog")
+	fmt.Print("--------before log error skip 1-----------\n")
+	log.Error(1,"-4-Hello %s!", "Clog")
+}
+func main() {
 
+	logno()
 }
 

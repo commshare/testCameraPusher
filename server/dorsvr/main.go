@@ -8,18 +8,22 @@ import (
 	"./gitea/log"
 	"os"
 )
-
-func main() {
-	/*// open a logger writer of console or file mode.
-	mode := "console"
-	config := `{"level":1,"filename":"test.log"}`
-	log.NewLogger(0, mode, config,true)*/
+func initClog(){
 	/*change to clog https://github.com/go-clog/clog*/
 	err := log.New(log.CONSOLE, log.ConsoleConfig{})
 	if err != nil {
 		fmt.Printf("Fail to create new logger: %v\n", err)
 		os.Exit(1)
 	}
+	/*显示行*/
+	log.SetShowLine(true)
+}
+func main() {
+	/*// open a logger writer of console or file mode.
+	mode := "console"
+	config := `{"level":1,"filename":"test.log"}`
+	log.NewLogger(0, mode, config,true)*/
+	initClog()
 	// to implement client access control to the RTSP server, do the following:
 	// var realm string
 	// authdb = auth.NewAuthDatabase(realm)
@@ -31,7 +35,7 @@ func main() {
 	server := rtspserver.New(nil)
 
 	portNum := 8554
-	err = server.Listen(portNum)
+	err := server.Listen(portNum)
 	if err != nil {
 		fmt.Printf("Failed to bind port: %d\n", portNum)
 		return
